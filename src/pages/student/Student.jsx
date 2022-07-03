@@ -38,7 +38,15 @@ function Student() {
             <div>Name - {student.name}</div>
             <div>Email - {student.email}</div>
             <div>Phone Number - {student.phoneNumber}</div>
-            <div>Faculty Advisor - {student.facultyAdvisor.name}</div>
+            <div>
+              Faculty Advisor -{' '}
+              <a
+                href={student.facultyAdvisor.profileUrl}
+                className='text-blue-600'
+              >
+                {student.facultyAdvisor.name}
+              </a>{' '}
+            </div>
             <div>Gender - {student.gender}</div>
           </div>
         </div>
