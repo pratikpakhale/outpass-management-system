@@ -14,8 +14,7 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const handleSubmit = async e => {
-    e.preventDefault()
+  const handleSubmit = async () => {
     const res = await fetch('/.netlify/functions/app/auth/login', {
       method: 'POST',
       headers: {
@@ -27,16 +26,16 @@ function Login() {
       }),
     })
     const data = await res.json()
-    if (data.error) {
-      alert(data.error)
-    } else {
+    if (res.status === 200) {
       setToken(data.token)
       setRole(data.role)
       localStorage.setItem('token', data.token)
       localStorage.setItem('role', data.role)
-      login()
 
+      login()
       navigate('/')
+    } else {
+      alert(data.message)
     }
   }
 
