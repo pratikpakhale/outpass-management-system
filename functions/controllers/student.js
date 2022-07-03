@@ -124,9 +124,13 @@ exports.getWardenStudents = async (req, res, next) => {
 }
 
 exports.getSLCStudents = async (req, res, next) => {
+  const instituteId = new require('mongoose').Types.ObjectId(req.institute)
+  console.log(instituteId)
+
   const students = await Student.find({
-    institute: req.instituteID,
+    institute: instituteId,
   }).populate('facultyAdvisor')
+
   if (!students) {
     const error = new Error('Could not find students.')
     error.statusCode = 404
