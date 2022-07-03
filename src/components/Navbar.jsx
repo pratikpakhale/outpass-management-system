@@ -11,14 +11,6 @@ function Navbar() {
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setToken(localStorage.getItem('token'))
-      setRole(localStorage.getItem('role'))
-      login()
-    }
-  })
-
   const logoutHandler = () => {
     setToken('')
     setRole('')
