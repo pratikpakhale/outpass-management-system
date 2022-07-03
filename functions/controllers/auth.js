@@ -161,27 +161,24 @@ exports.register = async (req, res, next) => {
       })
     }
 
-    institute = new Institute({
-      name: instituteName,
-      website: instituteWebsite,
-    })
-
-    const instituteResponse = await institute.save()
-
     const name = req.body.name
     const email = req.body.email
     const password = req.body.password
     const phoneNumber = req.body.phoneNumber
     const profileUrl = req.body.profileUrl
 
-    const slcInstance = StudentLifeCoordinator.findOne({ email: email })
-
-    if (slcInstance) {
+    if (!name || !email || !password || !phoneNumber || !profileUrl) {
       return res.status(400).json({
-        message: 'Student Life Coordinator already exists',
+        message: 'Please provide all the required fields',
       })
     }
 
+    institute = new Institute({
+      name: instituteName,
+      website: instituteWebsite,
+    })
+
+    const instituteResponse = await institute.save()
     const slc = new StudentLifeCoordinator({
       name: name,
       email: email,
