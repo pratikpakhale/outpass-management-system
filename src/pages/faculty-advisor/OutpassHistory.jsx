@@ -22,6 +22,26 @@ function ApprovalHistory() {
     getOutpasses()
   }, [getOutpasses])
 
+  const filter = async status => {
+    const res = await fetch(
+      '/.netlify/functions/app/facultyAdvisor/outpasses',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    )
+    const data = await res.json()
+    let filteredOutpasses = data.outpasses
+    if (status !== 'All') {
+      filteredOutpasses = filteredOutpasses.filter(
+        outpass => outpass.status === status
+      )
+    }
+    setOutpasses(filteredOutpasses)
+  }
+
   const color = status => {
     if (status === 'pending') return '#E7B416'
     if (status === 'approved') return '#2DC937'
@@ -37,11 +57,14 @@ function ApprovalHistory() {
           </h1>
         </div>
         <div className='flex justify-end items-center font-bold font-ubuntu text-2xl w-full'>
-          <select className=' hover:bg-transparent border-2 hover:border-ezpass hover:text-ezpass transition-all duration-100 ease-in-out text-white bg-ezpass rounded-full py-0.5 text-xl font-lato text-center'>
+          <select
+            className=' hover:bg-transparent border-2 hover:border-ezpass hover:text-ezpass transition-all duration-100 ease-in-out text-white bg-ezpass rounded-full py-0.5 text-xl font-lato text-center px-4'
+            onChange={e => filter(e.target.value)}
+          >
             <option value='All'>All</option>
-            <option value='All'>approved</option>
-            <option value='All'>pending</option>
-            <option value='All'>rejected</option>
+            <option value='approved'>Approved</option>
+            <option value='pending'>Pending</option>
+            <option value='rejected'>Rejected</option>
           </select>
         </div>
         <div className='flex flex-col items-center mt-4'>

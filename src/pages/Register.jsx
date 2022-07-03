@@ -32,8 +32,7 @@ function Register() {
         profileUrl: profileURL,
       }),
     })
-    const data = await res.json()
-    console.log(data)
+    await res.json()
     if (res.status === 201) {
       navigate('/login')
     }
