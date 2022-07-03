@@ -4,8 +4,7 @@ import { useContext } from 'react'
 import { authContext } from '../store/authContext'
 
 function Navbar() {
-  const { isAuthenticated, logout, setToken, setRole, login } =
-    useContext(authContext)
+  const { isAuthenticated, logout, setToken, setRole } = useContext(authContext)
 
   const navigate = useNavigate()
 
