@@ -125,7 +125,7 @@ exports.getWardenStudents = async (req, res, next) => {
 
 exports.getSLCStudents = async (req, res, next) => {
   const students = await Student.find({
-    studentLifeCoordinator: req.studentLifeCoordinatorID,
+    institute: req.instituteID,
   }).populate('facultyAdvisor')
   if (!students) {
     const error = new Error('Could not find students.')

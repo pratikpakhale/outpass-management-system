@@ -22,9 +22,9 @@ function Navbar() {
       <Link to={'/'}>
         <img src='/logo.svg' alt='logo' className='h-20' />
       </Link>
-      {pathname === '/login' || pathname === '/register' || isAuthenticated ? (
-        <></>
-      ) : (
+      {!isAuthenticated |
+        (pathname !== '/login') |
+        (pathname !== '/register') && (
         <Link to={'/register'}>
           <button className='border-2 border-ezpass px-3 py-1 rounded-md font-ubuntu hover:bg-ezpass hover:text-white transition-all duration-200 ease-in-out active:scale-95 tracking-wide font-semibold'>
             Register Institute
